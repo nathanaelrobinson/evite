@@ -3,3 +3,4 @@
 invites/migrations/*
 **.DS_Store
 events/settings.py
+*/invites/migrations/*
