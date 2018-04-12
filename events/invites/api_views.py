@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 
 from invites.models import Event, Person, Invite, Relationship
+from django.contrib.auth.models import User
 from invites.serializers import EventSerializer, PersonSerializer, InviteSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -33,6 +34,10 @@ class UserViewSet(viewsets.ModelViewSet):
 		except:
 			return Response("Please Provide The ID of a Requested Friend That is not already a Friend")
 		return Response("Friends with" + str(relationship))
+	
+	@detail_route(methods=['post'], permission_classes=(permissions.AllowAny,))
+	def create_authenticated(self, request, *args, **kwargs):
+		return Response(status=status.HTTP_200_OK)
 
 class InviteViewSet(viewsets.ModelViewSet):
 	queryset = Invite.objects.all()
@@ -40,7 +45,7 @@ class InviteViewSet(viewsets.ModelViewSet):
 	serializer_class = InviteSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
-	queryset = Event.objects.all()
+	queryset = Event.objects.filter(privacy='PUBLIC')
 	permission_classes = (permissions.AllowAny,)
 	serializer_class = EventSerializer
 

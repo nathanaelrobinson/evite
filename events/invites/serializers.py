@@ -13,7 +13,7 @@ class PersonSerializer(serializers.ModelSerializer):
 	
 	def create(self, validated_data):
 		_user = validated_data.pop('user', None)
-		_friends = validated_data.pop('friends')
+		_friends = validated_data.pop('friends', None)
 		username = _user['username']
 		user = User.objects.create(username=username)
 		user.save()
