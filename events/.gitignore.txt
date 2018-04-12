@@ -1,4 +1,0 @@
-*.pyc
-.DS_Store
-invites/migrations/*
-*.pyc
